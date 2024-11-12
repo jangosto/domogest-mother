@@ -8,37 +8,37 @@ class BaseModelCriteria extends BaseModelWithIdCriteria
     private ?DateTimeRange $updatedAtRange = null;
     private ?DateTimeRange $deletedAtRange = null;
 
-    public function filterByCreatedAt(DateTimeRange $dateTimeRange) {
+    public function filterByCreatedAt(DateTimeRange $dateTimeRange): self
+    {
         $this->createdAtRange = $dateTimeRange;
+
+        return $this;
     }
 
-    public function filterByUpdatedAt(DateTimeRange $dateTimeRange) {
+    public function filterByUpdatedAt(DateTimeRange $dateTimeRange): self
+    {
         $this->updatedAtRange = $dateTimeRange;
+
+        return $this;
     }
 
-    public function filterByDeletedAt(DateTimeRange $dateTimeRange) {
+    public function filterByDeletedAt(DateTimeRange $dateTimeRange): self
+    {
         $this->deletedAtRange = $dateTimeRange;
+
+        return $this;
     }
 
-    /**
-     * @return DateTimeRange|null
-     */
     public function getCreatedAtRange(): ?DateTimeRange
     {
         return $this->createdAtRange;
     }
 
-    /**
-     * @return DateTimeRange|null
-     */
     public function getUpdatedAtRange(): ?DateTimeRange
     {
         return $this->updatedAtRange;
     }
 
-    /**
-     * @return DateTimeRange|null
-     */
     public function getDeletedAtRange(): ?DateTimeRange
     {
         return $this->deletedAtRange;
