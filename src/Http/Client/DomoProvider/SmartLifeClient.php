@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\Client\DomoProvider;
+namespace Infrastructure\Http\Client\DomoProvider;
 
 class SmartLifeClient implements DomoProviderClient
 {
