@@ -24,4 +24,45 @@ class BaseRepository
     {
         $model->deletedAt = null;
     }
+
+    protected static function buildBaseFilterFromCriteria(BaseModelCriteria $criteria): array
+    {
+        $filter = [];
+
+        if (!\is_null($criteria->getId())) {
+            $filter['_id'] = $criteria->getId();
+        }
+
+        if (!\is_null($criteria->getCreatedAtRange())) {
+            if ($criteria->getCreatedAtRange()->getFrom()) {
+                $filter['createdAt']['$gte'] = $criteria->getCreatedAtRange()->getFrom();
+            }
+
+            if ($criteria->getCreatedAtRange()->getTo()) {
+                $filter['createdAt']['$lte'] = $criteria->getCreatedAtRange()->getTo();
+            }
+        }
+
+        if (!\is_null($criteria->getUpdatedAtRange())) {
+            if ($criteria->getUpdatedAtRange()->getFrom()) {
+                $filter['updatedAt']['$gte'] = $criteria->getUpdatedAtRange()->getFrom();
+            }
+
+            if ($criteria->getUpdatedAtRange()->getTo()) {
+                $filter['updatedAt']['$lte'] = $criteria->getUpdatedAtRange()->getTo();
+            }
+        }
+
+        if (!\is_null($criteria->getDeletedAtRange())) {
+            if ($criteria->getDeletedAtRange()->getFrom()) {
+                $filter['createdAt']['$gte'] = $criteria->getDeletedAtRange()->getFrom();
+            }
+
+            if ($criteria->getDeletedAtRange()->getTo()) {
+                $filter['createdAt']['$lte'] = $criteria->getDeletedAtRange()->getTo();
+            }
+        }
+
+        return $filter;
+    }
 }

@@ -6,6 +6,7 @@ use Domain\Exception\InfrastructureException;
 use Domain\Model\BaseRepository;
 use Domain\Model\Device\Device;
 use Domain\Model\Device\DeviceCriteria;
+use Domain\Model\Device\DeviceNotFoundException;
 use Domain\Model\Device\DeviceRepository;
 use Domain\Model\Device\Devices;
 use MongoDB\BSON\ObjectId;
@@ -63,14 +64,31 @@ class MongoDBDeviceRepository extends BaseRepository implements DeviceRepository
         );
     }
 
-    public function findBy(DeviceCriteria $criteria): Devices
-    {
-
-    }
-
     public function findOneBy(DeviceCriteria $criteria): Device
     {
+        $device = $this->collection->findOne(
+            self::buildFilterFromCriteria($criteria)
+        );
 
+        if (\is_null($device)) {
+            throw new DeviceNotFoundException();
+        }
+
+        return self::toDevice($device);
+    }
+
+    public function findBy(DeviceCriteria $criteria): Devices
+    {
+        $devices = $this->collection->find(
+            self::buildFilterFromCriteria($criteria)
+        );
+
+        $devicesObject = new Devices([]);
+        foreach ($devices as $device) {
+            $devicesObject->add(self::toDevice($device));
+        }
+
+        return $devicesObject;
     }
 
     private function toCollectionObject(Device $device): array
@@ -111,5 +129,20 @@ class MongoDBDeviceRepository extends BaseRepository implements DeviceRepository
             : null;
 
         return $device;
+    }
+
+    private static function buildFilterFromCriteria(DeviceCriteria $criteria): array
+    {
+        $filter = self::buildBaseFilterFromCriteria($criteria);
+
+        if (!\is_null($criteria->getType())) {
+            $filter['type'] = $criteria->getType();
+        }
+
+        if (!\is_null($criteria->getProvider())) {
+            $filter['provider'] = $criteria->getProvider();
+        }
+
+        return $filter;
     }
 }

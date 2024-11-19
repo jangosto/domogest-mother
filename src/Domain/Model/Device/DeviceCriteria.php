@@ -2,7 +2,9 @@
 
 namespace Domain\Model\Device;
 
-class DeviceCriteria
+use Domain\Model\BaseModelCriteria;
+
+class DeviceCriteria extends BaseModelCriteria
 {
     private ?string $type = null;
     private ?string $provider = null;
