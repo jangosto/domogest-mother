@@ -1,9 +1,15 @@
 FROM php:8.3-fpm-alpine AS build
 
+RUN apk add --update linux-headers
+
 RUN apk update \
     && apk add --no-cache autoconf g++ make \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb
+
+# Instalar y habilitar Xdebug
+RUN pecl install xdebug-3.3.1 \
+    && docker-php-ext-enable xdebug
 
 # FROM php:8.3-fpm-alpine
 #

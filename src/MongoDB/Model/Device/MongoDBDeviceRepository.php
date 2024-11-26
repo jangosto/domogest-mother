@@ -12,6 +12,7 @@ use Domain\Model\Device\Devices;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 use MongoDB\Client;
+
 use MongoDB\Collection;
 
 class MongoDBDeviceRepository extends BaseRepository implements DeviceRepository
@@ -24,8 +25,7 @@ class MongoDBDeviceRepository extends BaseRepository implements DeviceRepository
     public function __construct(
         Client $client,
         string $databaseName
-    )
-    {
+    ) {
         $this->client = $client;
         $this->collection = $client->selectCollection(
             $databaseName,

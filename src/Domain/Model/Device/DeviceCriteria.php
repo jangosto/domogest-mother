@@ -9,6 +9,11 @@ class DeviceCriteria extends BaseModelCriteria
     private ?string $type = null;
     private ?string $provider = null;
 
+    public static function createEmpty(): self
+    {
+        return new static();
+    }
+
     public function filterByType(string $type): self
     {
         $this->type = $type;

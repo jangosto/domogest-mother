@@ -8,6 +8,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-mongodb": "*",
+        "guzzlehttp/guzzle": "*",
+        "league/tactician-bundle": "*",
         "mongodb/mongodb": "^1.20",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
@@ -32,15 +34,18 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Infrastructure\\": "src/Http/",
-            "Domain\\": "src/Domain/"
-        }
+            "Domain\\": "src/Domain/",
+            "Infrastructure\\": "src/"
+        },
+        "classmap": [
+            "src/Kernel.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Infrastructure\\": "tests/Http/",
-            "Tests\\Domain\\": "tests/Domain/"
+            "Tests\\Infrastructure\\Http\\": "tests/Http/",
+            "Tests\\Domain\\": "tests/Domain/",
+            "Tests\\Functional\\": "tests/Functional/"
         }
     },
     "replace": {

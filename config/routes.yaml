@@ -1,5 +1,10 @@
-controllers:
-    resource:
-        path: ../src/Http/Controller/
-        namespace: Infrastructure\Controller
-    type: attribute
+# controllers:
+#     resource:
+#         path: ../src/Http/Controller/
+#         namespace: Infrastructure\Http\Controller
+#     type: attribute
+
+get_devices:
+    path: /devices
+    methods: [GET]
+    controller: Infrastructure\Http\Controller\GetDevicesController

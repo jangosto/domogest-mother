@@ -4,7 +4,7 @@ namespace Domain\Model;
 
 class BaseModelWithIdCriteria
 {
-    private ?string $id;
+    private ?string $id = null;
 
     public static function createById(string $id): self
     {
