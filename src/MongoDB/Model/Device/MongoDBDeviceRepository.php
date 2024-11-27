@@ -19,14 +19,12 @@ class MongoDBDeviceRepository extends BaseRepository implements DeviceRepository
 {
     private const COLLECTION_NAME = 'device';
 
-    private Client $client;
     private Collection $collection;
 
     public function __construct(
-        Client $client,
-        string $databaseName
+        private readonly Client $client,
+        string $databaseName,
     ) {
-        $this->client = $client;
         $this->collection = $client->selectCollection(
             $databaseName,
             self::COLLECTION_NAME

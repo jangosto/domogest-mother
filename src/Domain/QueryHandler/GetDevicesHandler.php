@@ -15,9 +15,9 @@ class GetDevicesHandler
     public function handle(GetDevicesQuery $query): Devices
     {
         try {
-            // $devices = $this->deviceRepository->findBy(
-            //     $query->getCriteria(),
-            // );
+            $devices = $this->deviceRepository->findBy(
+                $query->getCriteria(),
+            );
             $devices = new Devices([]);
         } catch (\Exception $e) {
             throw $e;

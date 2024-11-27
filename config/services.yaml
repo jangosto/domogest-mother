@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     mongodb_database_name: '%env(resolve:MONGODB_DATABASE_NAME)%'
+    mongodb_database_uri: '%env(resolve:MONGODB_DATABASE_URI)%'
 
 services:
     # default configuration for services in *this* file
@@ -12,7 +13,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            # Repositories Parameters
             string $databaseName: '%mongodb_database_name%'
 
     # makes classes in src/ available to be used as services
@@ -42,6 +42,8 @@ services:
 
     ### DATABASE REPOSITORIES ###
     MongoDB\Client:
+        arguments:
+            $uri: '%mongodb_database_uri%'
 
     Infrastructure\MongoDB\Model\Device\MongoDBDeviceRepository:
     Domain\Model\Device\DeviceRepository:

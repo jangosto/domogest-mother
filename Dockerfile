@@ -4,12 +4,17 @@ RUN apk add --update linux-headers
 
 RUN apk update \
     && apk add --no-cache autoconf g++ make \
+        openssl openssl-dev \
+        build-base pkgconf \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb
 
 # Instalar y habilitar Xdebug
 RUN pecl install xdebug-3.3.1 \
     && docker-php-ext-enable xdebug
+
+# Limpieza de paquetes para mantener la imagen liviana
+RUN apk del autoconf build-base pkgconf
 
 # FROM php:8.3-fpm-alpine
 #
